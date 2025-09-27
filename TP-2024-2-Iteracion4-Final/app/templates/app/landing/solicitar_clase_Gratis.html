@@ -1,0 +1,145 @@
+{% extends "app/landing/landing.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh-75 text-dark">
+    <form action="" method="get" class="col-md-8 col-lg-6 col-xl-4 shadow-sm bg-white p-4 rounded">
+        <div class="mb-3">
+            <label for="sede" class="form-label">Selecciona una sede</label>
+            <select name="sede" id="sede" class="form-select text-dark">
+                <option value="">-- Elige una sede --</option>
+                {% for sede in sedes %}
+                    <option value="{{ sede.id }}" {% if request.GET.sede == sede.id %} selected {% endif %}>
+                        {{ sede.departamento }} - {{ sede.distrito }} - {{ sede.direccion }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12 mb-3">
+            <button type="submit" class="btn btn-primary w-100">Ver Horarios</button>
+        </div>
+
+        {# Mostrar horarios o mensaje si hay una sede seleccionada #}
+        {% if request.GET.sede %}
+        <div class="mt-4 text text-dark">
+            <h4>Horarios disponibles:</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Frecuencia</th>
+                        <th>Hora de Inicio</th>
+                        <th>Hora de Fin</th>
+                        <th>Solicitar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for horario in horarios %}
+                        <tr>
+                            <td>{{ horario.frecuencia }}</td>
+                            <td>{{ horario.hora_inicio }}</td>
+                            <td>{{ horario.hora_fin }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#staticBackdrop" 
+                                        data-frecuencia="{{ horario.frecuencia }}"
+                                        data-hora_inicio="{{ horario.hora_inicio }}"
+                                        data-hora_fin="{{ horario.hora_fin }}"
+                                        data-id="{{ horario.id }}">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No hay horarios disponibles para esta sede.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de Solicitud</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center text-dark">
+                    
+                    <form action="{% url 'registrar_clase_gratis' %}" method="post" class="col-md-12 shadow-sm bg-white p-4 rounded">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre" class="form-label">Nombres</label>
+                                <input type="text" class="form-control" id="nombre" name="nombres" value="{{ request.GET.nombre }}" aria-describedby="nombreHelp">
+                                <div id="nombreHelp" class="form-text">No compartiremos tu nombre.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="apellido" class="form-label">Apellidos</label>
+                                <input type="text" class="form-control" id="apellido" name="apellidos" value="{{ request.GET.apellido }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="customRange1" class="form-label">Edad</label>
+                                <input type="range" class="form-range" id="customRange1" name="edad" min="0" max="100" value="{{ request.GET.edad|default:25 }}">
+                                <span id="ageValue">{{ request.GET.edad|default:25 }}</span> años
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="correo" class="form-label">Correo</label>
+                                <input type="email" class="form-control" id="correo" name="correo" value="{{ request.GET.correo }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="celular" class="form-label">Celular</label>
+                                <input type="tel" class="form-control" id="celular" name="celular" value="{{ request.GET.celular }}">
+                            </div>
+                            <div class="col-md-6 mb-3" style="display: none;">
+                                <input type="hidden" id="horario" name="horario" value="">
+                            </div>
+                            
+                            <div class="col-12 mb-3">
+                                <button type="submit" class="btn btn-primary w-100">Enviar Solicitud</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const rangeInput = document.getElementById('customRange1');
+    const ageValue = document.getElementById('ageValue');
+
+    // Inicializar el valor al cargar
+    ageValue.textContent = rangeInput.value;
+
+    // Actualizar el valor cuando se mueve el rango
+    rangeInput.addEventListener('input', function() {
+        ageValue.textContent = this.value;
+    });
+    // Escuchar el evento de apertura del modal
+    var myModal = document.getElementById('staticBackdrop');
+    myModal.addEventListener('show.bs.modal', function (event) {
+        // Botón que activó el modal
+        var button = event.relatedTarget; 
+        // Extraer información de los atributos data-*
+        var frecuencia = button.getAttribute('data-id');
+        // Establecer el valor en el campo correspondiente del modal
+        var modalHorarioInput = myModal.querySelector('#horario');
+        modalHorarioInput.value = frecuencia; // Coloca el horario seleccionado en el input
+    });
+</script>
+
+{% endblock %}
+
+{% block landing %}
+{% endblock %}

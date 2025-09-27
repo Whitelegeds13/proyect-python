@@ -1,0 +1,53 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} Lista de Horarios <i class="bi-clock-fill"></i>{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center">
+  <a href="/registrar_horario/"> <button class="btn btn-success rounded-1"><i class="fas fa-plus"></i> Registrar horario</button></a>
+  <form action="{% url 'buscar_horarios' %}" method="get" class="d-flex mt-3 mb-4" role="search">
+   
+    <input class="form-control me-2 rounded-1" name="q" type="search" placeholder="Buscar Horarios" aria-label="Search">
+    <button class="btn btn-success rounded-1" type="submit"><i class="fas fa-magnifying-glass"></i></button>
+  </form>
+</div>
+<table class="table table-hover table-bordered shadow-sm">
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Frecuencia</th>
+      <th scope="col">Hora</th>
+      <th scope="col">Grupo</th>
+      <th scope="col">Docente</th>
+      <th scope="col">Sede</th>
+      <th scope="col">Periodo</th>
+      <th scope="col" class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody class="">
+    {% for x in horarios %}
+    <tr>
+      <th scope="row">{{x.id}}</th>
+      <td>{{x.frecuencia}}</td>
+      <td>{{x.hora_inicio}}-{{x.hora_fin}}</td>
+      <td>{{x.grupo}}</td>
+      <td>{{x.id_docente.nombre}}</td>
+      <td>{{x.id_sede.distrito}}</td>
+      <td>{{x.periodo}}</td>
+      <td class="text-center">
+        <a href="/editar_horario/{{x.id}}"><button type="button" class="btn btn-info rounded-1">
+            <i class="bi bi-pencil"></i>
+          </button></a>
+        <a href="/detalle_horario/{{x.id}}"><button type="button" class="btn btn-info rounded-1"><i
+              class="bi bi-info-circle"></i></button></a>
+        <a href="/eliminar_horario/{{x.id}}"> <button type="button" class="btn btn-danger rounded-1"
+            onclick="return confirm('¿Estás seguro que quieres eliminar el Horario?')"><i
+              class="bi bi-trash"></i></button></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

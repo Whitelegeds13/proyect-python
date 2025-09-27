@@ -1,0 +1,61 @@
+{% extends "app/dashboard/dashboard_admin.html" %}
+
+{% block option %} Gestion de Usuarios {% endblock %}
+
+{% block buscar %}
+
+<form class="d-flex" role="search" method="GET" action="{% url 'buscar_usuarios' %}">
+    <input class="form-control me-2" type="search" name="q" placeholder="Buscar Usuarios" aria-label="Search"
+        value="{{ query }}">
+    <button class="btn btn-outline-success" type="submit">Buscar</button>
+</form>
+
+{% endblock %}
+
+{% block subtitle %} Lista de Usuarios {% endblock %}
+
+{% block content %}
+
+<div>
+    <a href="/registrar_usuario/"><button type="button" class="btn btn-primary">Nuevo
+            Usuario</button></a>
+</div>
+<br>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Grupo</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for x in usuarios %}
+        <tr>
+            <td>{{x.id}}</td>
+            <td>{{x.username}}</td>
+            <td>{{x.groups__name}}</td>
+
+            <td class="text-center">
+                <a href="/editar_usuario/{{x.id}}"><button type="button" class="btn btn-primary">
+                        <i class="bi bi-pencil"></i>
+                    </button></a>
+                <a href="/detalles_usuario/{{x.id}}"><button type="button" class="btn btn-primary"><i
+                            class="bi bi-info-circle"></i></button></a>
+                <a href="/eliminar_usuario/{{x.id}}"> <button type="button" class="btn btn-danger"
+                        onclick="return confirm('¿Estás seguro que quieres eliminar el usuario? Todos los datos relacionados con el usuario seran borrados permanentemente')"><i
+                            class="bi bi-trash"></i></button></a>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+
+
+{% endblock %}

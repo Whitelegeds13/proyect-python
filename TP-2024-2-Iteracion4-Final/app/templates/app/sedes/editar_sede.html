@@ -1,0 +1,319 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} Editar Sede <i class="bi-building"></i> {% endblock %}
+
+{% block content %}
+
+<div class="shadow-sm ps-3 pe-3 pt-3 pb-3 bg bg-white fw-bold border">
+  <form action="{% url 'editar_sedes' sede.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Departamento</label>
+      <select class="form-select" aria-label="Default select example" name="departamento" required>
+        <option value="{{sede.departamento}}" selected>{{sede.departamento}}</option>
+
+        <option value="Amazonas">Amazonas</option>
+        <option value="Áncash">Áncash</option>
+        <option value="Apurímac">Apurímac</option>
+        <option value="Arequipa">Arequipa</option>
+        <option value="Ayacucho">Ayacucho</option>
+        <option value="Cajamarca">Cajamarca</option>
+        <option value="Callao">Callao</option>
+        <option value="Cusco">Cusco</option>
+        <option value="Huancavelica">Huancavelica</option>
+        <option value="Huánuco">Huánuco</option>
+        <option value="Ica">Ica</option>
+        <option value="Junín">Junín</option>
+        <option value="La Libertad">La Libertad</option>
+        <option value="Lambayeque">Lambayeque</option>
+        <option value="Lima">Lima</option>
+        <option value="Loreto">Loreto</option>
+        <option value="Madre de Dios">Madre de Dios</option>
+        <option value="Moquegua">Moquegua</option>
+        <option value="Pasco">Pasco</option>
+        <option value="Piura">Piura</option>
+        <option value="Puno">Puno</option>
+        <option value="San Martín">San Martín</option>
+        <option value="Tacna">Tacna</option>
+        <option value="Tumbes">Tumbes</option>
+        <option value="Ucayali">Ucayali</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Provincia</label>
+      <select name="provincia" class="form-select" id="provincia">
+        <option value="{{sede.provincia}}" selected>{{sede.provincia}}</option>
+        <!-- Amazonas -->
+        <option value="Chachapoyas">Chachapoyas</option>
+        <option value="Bagua">Bagua</option>
+        <option value="Bongará">Bongará</option>
+        <option value="Condorcanqui">Condorcanqui</option>
+        <option value="Luya">Luya</option>
+        <option value="Rodríguez de Mendoza">Rodríguez de Mendoza</option>
+        <option value="Utcubamba">Utcubamba</option>
+
+        <!-- Áncash -->
+        <option value="Huaraz">Huaraz</option>
+        <option value="Aija">Aija</option>
+        <option value="Antonio Raymondi">Antonio Raymondi</option>
+        <option value="Asunción">Asunción</option>
+        <option value="Bolognesi">Bolognesi</option>
+        <option value="Carhuaz">Carhuaz</option>
+        <option value="Carlos Fermín Fitzcarrald">Carlos Fermín Fitzcarrald</option>
+        <option value="Casma">Casma</option>
+        <option value="Corongo">Corongo</option>
+        <option value="Huari">Huari</option>
+        <option value="Huarmey">Huarmey</option>
+        <option value="Huaylas">Huaylas</option>
+        <option value="Mariscal Luzuriaga">Mariscal Luzuriaga</option>
+        <option value="Ocros">Ocros</option>
+        <option value="Pallasca">Pallasca</option>
+        <option value="Pomabamba">Pomabamba</option>
+        <option value="Recuay">Recuay</option>
+        <option value="Santa">Santa</option>
+        <option value="Sihuas">Sihuas</option>
+        <option value="Yungay">Yungay</option>
+
+        <!-- Apurímac -->
+        <option value="Abancay">Abancay</option>
+        <option value="Andahuaylas">Andahuaylas</option>
+        <option value="Antabamba">Antabamba</option>
+        <option value="Aymaraes">Aymaraes</option>
+        <option value="Cotabambas">Cotabambas</option>
+        <option value="Chincheros">Chincheros</option>
+        <option value="Grau">Grau</option>
+
+        <!-- Arequipa -->
+        <option value="Arequipa">Arequipa</option>
+        <option value="Camana">Camana</option>
+        <option value="Caraveli">Caraveli</option>
+        <option value="Castilla">Castilla</option>
+        <option value="Caylloma">Caylloma</option>
+        <option value="Condesuyos">Condesuyos</option>
+        <option value="Islay">Islay</option>
+        <option value="La Unión">La Unión</option>
+
+        <!-- Ayacucho -->
+        <option value="Huamanga">Huamanga</option>
+        <option value="Cangallo">Cangallo</option>
+        <option value="Huanca Sancos">Huanca Sancos</option>
+        <option value="Huanta">Huanta</option>
+        <option value="La Mar">La Mar</option>
+        <option value="Lucanas">Lucanas</option>
+        <option value="Parinacochas">Parinacochas</option>
+        <option value="Paucar del Sara Sara">Paucar del Sara Sara</option>
+        <option value="Sucre">Sucre</option>
+        <option value="Víctor Fajardo">Víctor Fajardo</option>
+        <option value="Vilcas Huamán">Vilcas Huamán</option>
+
+        <!-- Cajamarca -->
+        <option value="Cajamarca">Cajamarca</option>
+        <option value="Cajabamba">Cajabamba</option>
+        <option value="Celendín">Celendín</option>
+        <option value="Chota">Chota</option>
+        <option value="Contumazá">Contumazá</option>
+        <option value="Cutervo">Cutervo</option>
+        <option value="Hualgayoc">Hualgayoc</option>
+        <option value="Jaén">Jaén</option>
+        <option value="San Ignacio">San Ignacio</option>
+        <option value="San Marcos">San Marcos</option>
+        <option value="San Miguel">San Miguel</option>
+        <option value="San Pablo">San Pablo</option>
+        <option value="Santa Cruz">Santa Cruz</option>
+
+        <!-- Callao -->
+        <option value="Callao">Callao</option>
+
+        <!-- Cusco -->
+        <option value="Cusco">Cusco</option>
+        <option value="Acomayo">Acomayo</option>
+        <option value="Anta">Anta</option>
+        <option value="Calca">Calca</option>
+        <option value="Canas">Canas</option>
+        <option value="Canchis">Canchis</option>
+        <option value="Chumbivilcas">Chumbivilcas</option>
+        <option value="Espinar">Espinar</option>
+        <option value="La Convención">La Convención</option>
+        <option value="Paruro">Paruro</option>
+        <option value="Paucartambo">Paucartambo</option>
+        <option value="Quispicanchi">Quispicanchi</option>
+        <option value="Urubamba">Urubamba</option>
+
+        <!-- Huancavelica -->
+        <option value="Huancavelica">Huancavelica</option>
+        <option value="Acobamba">Acobamba</option>
+        <option value="Angaraes">Angaraes</option>
+        <option value="Castrovirreyna">Castrovirreyna</option>
+        <option value="Churcampa">Churcampa</option>
+        <option value="Huaytará">Huaytará</option>
+        <option value="Tayacaja">Tayacaja</option>
+
+        <!-- Huánuco -->
+        <option value="Huánuco">Huánuco</option>
+        <option value="Ambo">Ambo</option>
+        <option value="Dos de Mayo">Dos de Mayo</option>
+        <option value="Huacaybamba">Huacaybamba</option>
+        <option value="Huamalíes">Huamalíes</option>
+        <option value="Leoncio Prado">Leoncio Prado</option>
+        <option value="Marañón">Marañón</option>
+        <option value="Pachitea">Pachitea</option>
+        <option value="Puerto Inca">Puerto Inca</option>
+        <option value="Lauricocha">Lauricocha</option>
+        <option value="Yarowilca">Yarowilca</option>
+
+        <!-- Ica -->
+        <option value="Ica">Ica</option>
+        <option value="Chincha">Chincha</option>
+        <option value="Nazca">Nazca</option>
+        <option value="Palpa">Palpa</option>
+        <option value="Pisco">Pisco</option>
+
+        <!-- Junín -->
+        <option value="Huancayo">Huancayo</option>
+        <option value="Concepción">Concepción</option>
+        <option value="Chanchamayo">Chanchamayo</option>
+        <option value="Jauja">Jauja</option>
+        <option value="Junín">Junín</option>
+        <option value="Satipo">Satipo</option>
+        <option value="Tarma">Tarma</option>
+        <option value="Yauli">Yauli</option>
+        <option value="Chupaca">Chupaca</option>
+
+        <!-- La Libertad -->
+        <option value="Trujillo">Trujillo</option>
+        <option value="Ascope">Ascope</option>
+        <option value="Bolívar">Bolívar</option>
+        <option value="Chepén">Chepén</option>
+        <option value="Julcán">Julcán</option>
+        <option value="Otuzco">Otuzco</option>
+        <option value="Pacasmayo">Pacasmayo</option>
+        <option value="Pataz">Pataz</option>
+        <option value="Sánchez Carrión">Sánchez Carrión</option>
+        <option value="Santiago de Chuco">Santiago de Chuco</option>
+        <option value="Gran Chimú">Gran Chimú</option>
+        <option value="Viru">Viru</option>
+
+        <!-- Lambayeque -->
+        <option value="Chiclayo">Chiclayo</option>
+        <option value="Ferreñafe">Ferreñafe</option>
+        <option value="Lambayeque">Lambayeque</option>
+
+        <!-- Lima -->
+        <option value="Lima">Lima</option>
+        <option value="Barranca">Barranca</option>
+        <option value="Cajatambo">Cajatambo</option>
+        <option value="Canta">Canta</option>
+        <option value="Cañete">Cañete</option>
+        <option value="Huaral">Huaral</option>
+        <option value="Huarochirí">Huarochirí</option>
+        <option value="Huaura">Huaura</option>
+        <option value="Oyón">Oyón</option>
+        <option value="Yauyos">Yauyos</option>
+
+        <!-- Loreto -->
+        <option value="Maynas">Maynas</option>
+        <option value="Alto Amazonas">Alto Amazonas</option>
+        <option value="Datem del Marañón">Datem del Marañón</option>
+        <option value="Loreto">Loreto</option>
+        <option value="Mariscal Ramón Castilla">Mariscal Ramón Castilla</option>
+        <option value="Putumayo">Putumayo</option>
+        <option value="Requena">Requena</option>
+        <option value="Ucayali">Ucayali</option>
+
+        <!-- Madre de Dios -->
+        <option value="Tambopata">Tambopata</option>
+        <option value="Manu">Manu</option>
+        <option value="Tahuamanu">Tahuamanu</option>
+
+        <!-- Moquegua -->
+        <option value="Mariscal Nieto">Mariscal Nieto</option>
+        <option value="General Sánchez Cerro">General Sánchez Cerro</option>
+        <option value="Ilo">Ilo</option>
+
+        <!-- Pasco -->
+        <option value="Pasco">Pasco</option>
+        <option value="Daniel Alcides Carrión">Daniel Alcides Carrión</option>
+        <option value="Oxapampa">Oxapampa</option>
+
+        <!-- Piura -->
+        <option value="Piura">Piura</option>
+        <option value="Ayabaca">Ayabaca</option>
+        <option value="Huancabamba">Huancabamba</option>
+        <option value="Morropón">Morropón</option>
+        <option value="Paita">Paita</option>
+        <option value="Sullana">Sullana</option>
+        <option value="Talara">Talara</option>
+        <option value="Sechura">Sechura</option>
+
+        <!-- Puno -->
+        <option value="Puno">Puno</option>
+        <option value="Azángaro">Azángaro</option>
+        <option value="Carabaya">Carabaya</option>
+        <option value="Chucuito">Chucuito</option>
+        <option value="El Collao">El Collao</option>
+        <option value="Huancané">Huancané</option>
+        <option value="Lampa">Lampa</option>
+        <option value="Melgar">Melgar</option>
+        <option value="Moho">Moho</option>
+        <option value="San Antonio de Putina">San Antonio de Putina</option>
+        <option value="San Román">San Román</option>
+        <option value="Sandia">Sandia</option>
+        <option value="Yunguyo">Yunguyo</option>
+
+        <!-- San Martín -->
+        <option value="Moyobamba">Moyobamba</option>
+        <option value="Bellavista">Bellavista</option>
+        <option value="El Dorado">El Dorado</option>
+        <option value="Huallaga">Huallaga</option>
+        <option value="Lamas">Lamas</option>
+        <option value="Mariscal Cáceres">Mariscal Cáceres</option>
+        <option value="Picota">Picota</option>
+        <option value="Rioja">Rioja</option>
+        <option value="San Martín">San Martín</option>
+        <option value="Tocache">Tocache</option>
+
+        <!-- Tacna -->
+        <option value="Tacna">Tacna</option>
+        <option value="Candarave">Candarave</option>
+        <option value="Jorge Basadre">Jorge Basadre</option>
+        <option value="Tarata">Tarata</option>
+
+        <!-- Tumbes -->
+        <option value="Tumbes">Tumbes</option>
+        <option value="Contralmirante Villar">Contralmirante Villar</option>
+        <option value="Zarumilla">Zarumilla</option>
+
+        <!-- Ucayali -->
+        <option value="Coronel Portillo">Coronel Portillo</option>
+        <option value="Atalaya">Atalaya</option>
+        <option value="Padre Abad">Padre Abad</option>
+        <option value="Purús">Purús</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Distrito</label>
+      <input type="text" class="form-control" name="distrito" value="{{sede.distrito}}"
+        placeholder="Ingrese el Distrito" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Direccion</label>
+      <input type="text" class="form-control" name="direccion" value="{{sede.direccion}}"
+        placeholder="Ingrese la Direccion" required>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <label class="form-label">Foto de Perfil</label>
+      <input type="file" class="form-control" name="foto_local" accept=".jpg, .jpeg, .png">
+      {% if sede.foto_local %}
+      <img src="{{ sede.foto_local.url }}" alt="Foto de local" class="img-thumbnail"
+        style="max-width: 200px; margin-bottom: 10px;">
+      {% endif %}
+    </div>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-warning" type="submit"><i class="bi bi-check-circle"></i> Editar</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

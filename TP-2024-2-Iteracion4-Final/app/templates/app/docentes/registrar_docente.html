@@ -1,0 +1,203 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} Registrar Docente <i class="fas fa-user-ninja"></i> {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <form class="row g-3 p-4 shadow-sm bg-white border" action="{% url 'registrar_docente' %}" method="post" enctype="multipart/form-data" id="form-docente">
+    {% csrf_token %}
+    
+    <!-- Nombres -->
+    <div class="col-md-4">
+      <label class="form-label">Nombres</label>
+      <input type="text" class="form-control" placeholder="Nombres" name="nombre" id="nombre" required>
+      <div id="nombre-error" class="text-danger"></div>
+    </div>
+
+    <!-- Apellidos -->
+    <div class="col-md-4">
+      <label class="form-label">Apellidos</label>
+      <input type="text" class="form-control" placeholder="Apellidos" name="apellido" id="apellido" required>
+      <div id="apellido-error" class="text-danger"></div>
+    </div>
+
+    <!-- DNI -->
+    <div class="col-12 col-md-4">
+      <label class="form-label">DNI</label>
+      <input type="number" class="form-control" placeholder="DNI" minlength="8" maxlength="8" name="dni" id="dni" required>
+      <div id="dni-error" class="text-danger"></div>
+    </div>
+
+    <!-- Correo -->
+    <div class="col-12 col-md-4">
+      <label class="form-label">Correo</label>
+      <input type="email" class="form-control" name="correo" id="correo" required>
+      <div id="correo-error" class="text-danger"></div>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="col-12 col-md-4">
+      <label class="form-label">Teléfono</label>
+      <input type="text" class="form-control" placeholder="Teléfono" name="telefono" id="telefono" required>
+      <div id="telefono-error" class="text-danger"></div>
+    </div>
+
+    <!-- Dirección -->
+    <div class="col-md-4">
+      <label class="form-label">Dirección</label>
+      <input type="text" class="form-control" placeholder="Dirección de Domicilio" name="direccion" id="direccion" required>
+    </div>
+
+    <!-- Fecha de Nacimiento -->
+    <div class="col-md-4">
+      <label class="form-label">Fecha de Nacimiento</label>
+      <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" required>
+      <div id="fecha_nacimiento-error" class="text-danger"></div>
+    </div>
+
+    <!-- Grado de Cinturón -->
+    <div class="col-md-4">
+      <label class="form-label">Grado de Cinturón</label>
+      <select class="form-control form-select" name="grado_cinturon" id="grado_cinturon" required>
+        <option value="Cinturón Negro I DAN">Cinturón Negro I DAN</option>
+        <option value="Cinturón Negro II DAN">Cinturón Negro II DAN</option>
+        <option value="Cinturón Negro III DAN">Cinturón Negro III DAN</option>
+        <option value="Cinturón Negro IV DAN">Cinturón Negro IV DAN</option>
+        <option value="Cinturón Negro V DAN">Cinturón Negro V DAN</option>
+        <option value="Cinturón Negro VI DAN">Cinturón Negro VI DAN</option>
+        <option value="Cinturón Negro VII DAN">Cinturón Negro VII DAN</option>
+        <option value="Cinturón Negro VIII DAN">Cinturón Negro VIII DAN</option>
+        <option value="Cinturón Negro IX DAN">Cinturón Negro IX DAN</option>
+        <option value="Cinturón Negro X DAN">Cinturón Negro X DAN</option>
+      </select>
+    </div>
+
+    <!-- Foto de Perfil -->
+    <div class="col-md-4">
+      <label class="form-label">Foto de Perfil</label>
+      <input type="file" class="form-control" name="foto_perfil" id="foto_perfil" accept=".jpg, .jpeg, .png" required>
+      <div id="foto_perfil-error" class="text-danger"></div>
+    </div>
+
+    <!-- Género -->
+    <div class="col-md-4">
+      <label class="form-label">Género</label>
+      <select class="form-control form-select" name="genero" id="genero" required>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+      </select>
+    </div>
+
+    <!-- Nombre de Usuario -->
+    <div class="mb-3">
+      <label class="form-label">Nombre de Usuario</label>
+      <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingrese el nombre de Usuario" required>
+      <div id="usuario-error" class="text-danger"></div>
+    </div>
+
+    <!-- Contraseña -->
+    <div class="mb-3">
+      <label class="form-label">Contraseña</label>
+      <input type="password" class="form-control" name="contraseña" id="contraseña" placeholder="Ingrese la contraseña" required>
+      <div id="contraseña-error" class="text-danger"></div>
+    </div>
+
+    <!-- Grupo -->
+    <div class="mb-3">
+      <label class="form-label">Grupo</label>
+      <select class="form-select" name="grupo" id="grupo" required>
+        {% for x in grupos %}
+        <option value="{{ x.name }}">{{ x.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="d-grid gap-2">
+      <button class="btn btn-success rounded-1" type="submit" id="btn-submit" disabled><i class="bi bi-check-circle"></i> Registrar</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Función de validación para cada campo
+  function validarCampos() {
+    let isValid = true;
+
+    // Limpiar mensajes de error
+    document.querySelectorAll('.text-danger').forEach(function(element) {
+      element.textContent = '';
+    });
+
+    // Validar nombre
+    const nombre = document.getElementById('nombre');
+    if (!/^[a-zA-Z\s]+$/.test(nombre.value)) {
+      document.getElementById('nombre-error').textContent = 'El nombre solo puede contener letras';
+      isValid = false;
+    }
+
+    // Validar apellidos
+    const apellido = document.getElementById('apellido');
+    if (!/^[a-zA-Z\s]+$/.test(apellido.value)) {
+      document.getElementById('apellido-error').textContent = 'Los apellidos solo pueden contener letras';
+      isValid = false;
+    }
+
+    // Validar DNI (8 dígitos)
+    const dni = document.getElementById('dni');
+    if (dni.value.length !== 8) {
+      document.getElementById('dni-error').textContent = 'El DNI debe tener exactamente 8 dígitos';
+      isValid = false;
+    }
+
+    // Validar correo electrónico
+    const correo = document.getElementById('correo');
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(correo.value)) {
+      document.getElementById('correo-error').textContent = 'El correo electrónico no es válido';
+      isValid = false;
+    }
+
+    // Validar teléfono
+    const telefono = document.getElementById('telefono');
+    const phoneRegex = /^[0-9]{9}$/;
+    if (!phoneRegex.test(telefono.value)) {
+      document.getElementById('telefono-error').textContent = 'El teléfono debe tener exactamente 9 dígitos';
+      isValid = false;
+    }
+
+    // Validar fecha de nacimiento
+    const fechaNacimiento = document.getElementById('fecha_nacimiento');
+    const today = new Date();
+    const birthDate = new Date(fechaNacimiento.value);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    if (age < 18) {
+      document.getElementById('fecha_nacimiento-error').textContent = 'El docente debe ser mayor de 18 años';
+      isValid = false;
+    }
+
+    // Validar foto de perfil
+    const fotoPerfil = document.getElementById('foto_perfil');
+    const file = fotoPerfil.files[0];
+    if (file && !['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
+      document.getElementById('foto_perfil-error').textContent = 'La foto debe ser en formato JPG, JPEG o PNG';
+      isValid = false;
+    }
+
+    // Habilitar o deshabilitar el botón de envío
+    document.getElementById('btn-submit').disabled = !isValid;
+    return isValid;
+  }
+
+  // Ejecutar la validación al intentar enviar el formulario
+  document.getElementById('form-docente').addEventListener('submit', function(event) {
+    if (!validarCampos()) {
+      event.preventDefault();  // Evitar el envío si hay errores
+    }
+  });
+
+  // Validación en tiempo real al cambiar valores en los campos
+  document.querySelectorAll('#form-docente input, #form-docente select').forEach(function(input) {
+    input.addEventListener('input', validarCampos);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} 
+    Dashboard <i class="bi bi-grid-fill"></i> 
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="card text-bg-danger mb-3">
+                <div class="card-header">Total Alumnos</div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{total_alumnos}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-bg-primary mb-3">
+                <div class="card-header">Total Docentes</div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{total_docentes}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-bg-success mb-3">
+                <div class="card-header">Ganancia de Matriculas</div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">s/ {{matriculas_pagadas}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-bg-warning mb-3">
+                <div class="card-header">Clases Gratuitas</div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ total_solicitudes}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    Alumnos por Docente
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="width: 100%; height: 300px;">
+                        <canvas id="alumnosDocenteChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    
+    const labels = JSON.parse('{{ labels|safe }}'); // Nombres de los docentes
+    const data = JSON.parse('{{ data|safe }}');     // Alumnos por docente
+
+    
+    const ctx = document.getElementById('alumnosDocenteChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar', // Tipo de gráfico
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Número de Alumnos',
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', 
+                borderColor: 'rgba(75, 192, 192, 1)',       
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true, 
+            maintainAspectRatio: false, 
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Docentes'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Alumnos'
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

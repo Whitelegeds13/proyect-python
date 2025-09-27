@@ -1,0 +1,64 @@
+/* Contenedor del carrusel */
+.carousel-inner {
+    height: 65vh;
+    min-height: 300px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .carousel-item img {
+    width: 100%;
+    height: 600px !important; 
+    object-fit: contain; /* Mantener las proporciones sin recortar la imagen */
+    transition: transform 0.3s ease;
+    max-width: 100%; /* Limitar el ancho máximo al tamaño del contenedor */
+    max-height: 65vh; /* Limitar el alto máximo relativo al viewport */
+    margin: 0 auto; /* Centrar horizontalmente la imagen */
+    border-radius: 0; /* Asegurarse de que no tenga bordes redondeados */
+    border: none !important;   /* Elimina borde */
+    outline: none !important;  /* Elimina contorno */
+    box-shadow: none !important; /* Elimina sombra */
+  }
+  
+  /* Indicadores del carrusel */
+  .carousel-indicators li {
+    background-color: rgba(255, 255, 255, 0.8); /* Color claro */
+    width: 12px;
+    height: 12px;
+    margin: 3px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .carousel-indicators .active {
+    background-color: rgba(255, 255, 255, 1); /* Color más brillante al estar activo */
+  }
+  
+  /* Botones de navegación */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    border-radius: 0%; /* Eliminar borde circular si no se quiere */
+    padding: 10px; /* Ajustar tamaño del botón */
+  }
+  
+  /* Añadir hover a los botones de navegación */
+  .carousel-control-prev:hover .carousel-control-prev-icon,
+  .carousel-control-next:hover .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.7); /* Más opaco al pasar el mouse */
+  }
+  
+  /* Texto accesible */
+  .carousel-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    padding: 10px 15px;
+  }
+  #carouselExampleIndicators {
+    border: none;      /* Elimina cualquier borde */
+    outline: none ;     /* Elimina cualquier contorno */
+    box-shadow: none;  /* Elimina cualquier sombra */
+  }

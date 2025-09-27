@@ -1,0 +1,21 @@
+{% extends "app/base/base_alumno.html" %}
+
+{% block titulo %} Mi Asistencia {% endblock %}
+
+{% block content %}
+
+{% for x in asistencias %}
+
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+        <h5 class="card-title">Clase: Taekwondo - Grupo:{{x.id_asistencia.id_horario.grupo}}</h5>
+        <p class="card-text">
+            <strong>Fecha:</strong> {{x.id_asistencia.fecha}} <br>
+            <strong>Estado:</strong> <span class="badge bg-success">{{x.estado}}</span>
+        </p>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

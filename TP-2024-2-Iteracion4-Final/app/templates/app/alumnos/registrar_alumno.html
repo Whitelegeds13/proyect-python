@@ -1,0 +1,100 @@
+{% extends "app/base/base_docente.html" %}
+{% block titulo %} Registrar Alumno {% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+<form class="row g-3 p-4 shadow-sm bg-white border" action="{% url 'registrar_alumno' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="col-md-4">
+    <label class="form-label">Nombres</label>
+    <input type="text" class="form-control" placeholder="Nombres" name="nombre" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Apellidos</label>
+    <input type="text" class="form-control" placeholder="Apellidos" name="apellido" required>
+  </div>
+  <div class="col-12 col-md-4">
+    <label class="form-label">DNI</label>
+    <input type="number" class="form-control" placeholder="DNI" minlength="8" maxlength="8"  name="dni" required>
+  </div>
+  <div class="col-12 col-md-4">
+    <label class="form-label">Correo</label>
+    <input type="email" class="form-control" name="correo" required>
+  </div>
+  <div class="col-12 col-md-4">
+    <label class="form-label">Telefono</label>
+    <input type="number" class="form-control" name="telefono" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Direccion</label>
+    <input type="text" class="form-control" placeholder="Direccion de Domicilio" name="direccion" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Fecha de Nacimiento</label>
+    <input type="date" class="form-control" name="fecha_nacimiento" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Grado de Cinturon</label>
+    <select id="" class="form-control form-select " name="grado_cinturon" required>
+        {% for x in cinturones %}
+      <option value="{{x.id}}">{{x.color_cinturon}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Foto de Perfil</label>
+    <input type="file" class="form-control" name="foto_perfil" accept=".jpg, .jpeg, .png" required>
+  </div>
+
+  <div class="col-md-4 ">
+    <label class="form-label">Genero</label>
+    <select id="" class="form-control form-select" name="genero" required>
+      <option value="Masculino">Masculino</option>
+      <option value="Femenino">Femenino</option>
+    </select>
+  </div>
+
+
+  <div class="mb-3">
+    <label class="form-label">Nombre de Usuario</label>
+    <input type="text" class="form-control" name="usuario" placeholder="Ingrese el nombre de Usuario" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Contraseña</label>
+    <input type="password" class="form-control" name="contraseña" placeholder="Ingrese la contraseña" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Grupo</label>
+    <select class="form-select" aria-label="Default select example" name="grupo" required>
+        {% for x in grupos %}
+        {% if x.name == "Alumno" %}
+            <option value="{{ x.name }}">{{ x.name }}</option>
+        {% endif %}
+    {% endfor %}
+    </select>
+  </div>
+  <h2><label class="form-label">Generar Matricula</label></h2>
+  <div class="mb-3">
+    <label class="form-label">Seleccione el horario</label>
+    <select name="id_horario" class="form-select" id="">
+      {% for x in horarios %}
+      <option value="{{x.id}}">{{x.frecuencia}}-{{x.hora_inicio}}-{{x.hora_fin}}-{{x.grupo}}-{{x.id_sede.distrito}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Monto</label>
+    <input type="number" class="form-control" name="monto" placeholder=" s/ Ingrese el monto" required>
+  </div>
+
+
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" type="submit">Registrar</button>
+  </div>
+</form>
+</div>
+
+{% endblock %}

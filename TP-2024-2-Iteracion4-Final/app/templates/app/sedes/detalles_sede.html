@@ -1,0 +1,44 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %}Detalles Sede <i class="bi-building"></i>{% endblock %}
+
+
+{% block content %}
+
+<div class="shadow-sm ps-3 pe-3 pt-3 pb-3 bg bg-white fw-bold">
+  <div class="mb-3">
+    <label class="form-label">Departamento</label>
+    <select class="form-select" aria-label="Default select example" name="departamento" disabled>
+      <option value="{{sede.departamento}}" selected>{{sede.departamento}}</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Provincia</label>
+    <select name="provincia" class="form-select" id="provincia" disabled>
+      <option value="{{sede.provincia}}" selected>{{sede.provincia}}</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Distrito</label>
+    <input type="text" class="form-control" name="distrito" value="{{sede.distrito}}" placeholder="Ingrese el Distrito"
+      disabled>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Direccion</label>
+    <input type="text" class="form-control" name="direccion" value="{{sede.direccion}}"
+      placeholder="Ingrese la Direccion" disabled>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Foto de Perfil</label>
+    <input type="file" class="form-control" name="foto_local" accept=".jpg, .jpeg, .png" disabled>
+    {% if sede.foto_local %}
+    <img src="{{ sede.foto_local.url }}" alt="Foto de local" class="img-thumbnail"
+      style="max-width: 200px; margin-bottom: 10px;">
+    {% endif %}
+  </div>
+  <div class="d-grid gap-2">
+    <a href="/lista_sedes/" class="btn btn-primary">Volver a lista</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "app/dashboard/dashboard_admin.html" %}
+
+{% block option %} Gestión de Docentes {% endblock %}
+
+{% block buscar %}
+<form class="d-flex" role="search" method="GET" action="{% url 'buscar_docentes'  %}">
+  <input class="form-control me-2" type="search" name="q" placeholder="Buscar Docentes" aria-label="Search"
+    value="{{ query }}">
+  <button class="btn btn-outline-success" type="submit">Buscar</button>
+</form>
+{% endblock %}
+
+{% block titulo %} Detalles Docente {% endblock %}
+
+{% block content %}
+
+<form class="row g-3 pt-md-5">
+  <div class="col-md-4">
+    <label class="form-label">Nombres</label>
+    <input type="text" class="form-control" placeholder="Nombres" name="nombre" value="{{ docente.nombre }}" required
+      disabled>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Apellidos</label>
+    <input type="text" class="form-control" placeholder="Apellidos" name="apellido" value="{{ docente.apellido }}"
+      required disabled>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Edad</label>
+    <input type="number" class="form-control" placeholder="Edad" name="edad" value="{{ docente.edad }}" required
+      disabled>
+  </div>
+  <div class="col-12 col-md-4">
+    <label class="form-label">DNI</label>
+    <input type="text" class="form-control" placeholder="DNI" name="dni" value="{{ docente.dni }}" required disabled>
+  </div>
+  <div class="col-12 col-md-4">
+    <label class="form-label">Correo</label>
+    <input type="email" class="form-control" name="correo" value="{{ docente.correo }}" required disabled>
+  </div>
+  <div class="col-12 col-md-4">
+    <label class="form-label">Telefono</label>
+    <input type="number" class="form-control" name="correo" value="{{ docente.telefono }}" required disabled>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Dirección</label>
+    <input type="text" class="form-control" placeholder="Dirección de Domicilio" name="direccion"
+      value="{{ docente.direccion }}" required disabled>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Fecha de Nacimiento</label>
+    <input type="date" class="form-control" name="fecha_nacimiento" value="{{ docente.fecha_nacimiento|date:'Y-m-d' }}"
+      required disabled>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Grado de Cinturón</label>
+    <select class="form-control form-select" name="grado_cinturon" required disabled>
+      <option value="{{ docente.grado_cinturon }}" selected>actual: {{ docente.grado_cinturon }}</option>
+      <option value="Cinturón Negro I DAN">Cinturón Negro I DAN</option>
+      <option value="Cinturón Negro II DAN">Cinturón Negro II DAN</option>
+      <option value="Cinturón Negro III DAN">Cinturón Negro III DAN</option>
+      <option value="Cinturón Negro IV DAN">Cinturón Negro IV DAN</option>
+      <option value="Cinturón Negro V DAN">Cinturón Negro V DAN</option>
+      <option value="Cinturón Negro VI DAN">Cinturón Negro VI DAN</option>
+      <option value="Cinturón Negro VII DAN">Cinturón Negro VII DAN</option>
+      <option value="Cinturón Negro VIII DAN">Cinturón Negro VIII DAN</option>
+      <option value="Cinturón Negro IX DAN">Cinturón Negro IX DAN</option>
+      <option value="Cinturón Negro X DAN">Cinturón Negro X DAN</option>
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Foto de Perfil</label>
+    <input type="file" class="form-control" name="foto_perfil" accept=".jpg, .jpeg, .png" disabled>
+    {% if docente.foto_perfil %}
+    <img src="{{ docente.foto_perfil.url }}" alt="Foto de Perfil" class="img-thumbnail"
+      style="max-width: 200px; margin-bottom: 10px;">
+    {% endif %}
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Género</label>
+    <select class="form-control form-select" name="genero" required disabled>
+      <option value="{{ docente.genero }}" selected>actual: {{ docente.genero }}</option>
+      <option value="Masculino">Masculino</option>
+      <option value="Femenino">Femenino</option>
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label">Usuario</label>
+    <select class="form-control form-select" name="usuario" required disabled>
+
+      <option value="{{ docente.id_usuario.id }}">{{ docente.id_usuario }}</option>
+
+    </select>
+  </div>
+
+  <div class="text-center">
+    <a href="/lista_docentes/"><button type="button" class="btn btn-primary">Volver a lista</button></a>
+  </div>
+</form>
+{% endblock %}

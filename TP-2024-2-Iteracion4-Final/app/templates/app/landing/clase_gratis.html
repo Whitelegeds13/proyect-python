@@ -1,0 +1,113 @@
+{% extends "app/landing/landing.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="ocean-particles"></div>
+  <div class="container">
+    <div class="row align-items-center min-vh-100">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="hero-content text-center text-lg-start">
+          <div class="hero-badge" data-aos="fade-up" data-aos-delay="200">
+            <span>🥋 ¡Primera clase 100% GRATIS! 🥋</span>
+          </div>
+          <h1 class="hero-title" data-aos="fade-up" data-aos-delay="300">
+            ¡Descubre el <span class="highlight">Taekwondo</span> en Gym Master Segovia!
+          </h1>
+          <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="400">
+            La Academia de Taekwondo <strong>Gym Master Segovia</strong> te invita a experimentar 
+            el arte marcial coreano más completo del mundo. ¡Más de 31 años formando campeones!
+          </p>
+          <div class="hero-features" data-aos="fade-up" data-aos-delay="500">
+            <div class="feature-item">
+              <i class="fas fa-fist-raised"></i>
+              <span>Disciplina y autodefensa</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-user-friends"></i>
+              <span>Clases desde 4 años hasta adultos</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-trophy"></i>
+              <span>Certificación Kukkiwon</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-star"></i>
+              <span>31+ años de experiencia</span>
+            </div>
+          </div>
+          <div class="hero-actions" data-aos="fade-up" data-aos-delay="600">
+            <a href="/solicitar_clase_gratis/" class="btn btn-primary btn-lg me-3">
+              <i class="bi bi-mortarboard me-2"></i>
+              Solicitar Clase Gratis
+            </a>
+            <a href="#nosotros" class="btn btn-outline-light btn-lg">
+              <i class="fas fa-info-circle me-2"></i>
+              Conocer Más
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="hero-image-container">
+          {% load static %}
+          <div class="logo-container">
+            <img src="{% static 'app/img/logo_landing.jpg' %}" alt="Logo Gym Master Segovia" class="hero-logo">
+            <div class="logo-glow"></div>
+          </div>
+          <div class="floating-elements">
+            <div class="floating-element element-1">
+              <i class="fas fa-fist-raised"></i>
+              <span class="element-text">Puño</span>
+            </div>
+            <div class="floating-element element-2">
+              <i class="fas fa-bolt"></i>
+              <span class="element-text">Patada</span>
+            </div>
+            <div class="floating-element element-3">
+              <i class="fas fa-trophy"></i>
+              <span class="element-text">Campeón</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Información Adicional -->
+<section class="info-section py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4" data-aos="fade-up">
+        <div class="info-card text-center">
+          <div class="info-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h4>Confirmación por Email</h4>
+          <p>Recibirás una confirmación detallada por correo electrónico con toda la información de tu clase gratuita.</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="info-card text-center">
+          <div class="info-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h4>Sedes en Lima</h4>
+          <p>Ubicadas en La Victoria, Villa María del Triunfo y colegio Libardoni. ¡Encuentra la más cercana a ti!</p>
+        </div>
+      </div>
+      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="info-card text-center">
+          <div class="info-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <h4>Maestro Certificado</h4>
+          <p>Victor Segovia Tenorio, Cinturón Negro IV DAN Kukkiwon con más de 31 años de experiencia.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

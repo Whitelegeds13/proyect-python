@@ -1,0 +1,180 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} Registrar Horario <i class="bi-clock-fill"></i>{% endblock %}
+
+{% block content %}
+<div class="shadow-sm p-4 bg-white fw-bold border">
+    <form id="form_registro" action="{% url 'registrar_horario'  %}" method="post" onsubmit="return validarFormulario()">
+      
+        {% csrf_token %}
+        <input type="text" class="text-center border" value="{{periodo}}" disabled>
+        <div class="text-center mb-4">
+            <h4 class="form-label">Frecuencia</h4>
+        </div>
+
+        <div class="text-center d-flex flex-wrap justify-content-center mb-4">
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="frecuencia" value="Lunes">
+                <label class="form-check-label" for="inlineCheckbox1">Lunes</label>
+            </div>
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="frecuencia" value="Martes">
+                <label class="form-check-label" for="inlineCheckbox2">Martes</label>
+            </div>
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="frecuencia" value="Miercoles">
+                <label class="form-check-label" for="inlineCheckbox3">Miércoles</label>
+            </div>
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="frecuencia" value="Jueves">
+                <label class="form-check-label" for="inlineCheckbox4">Jueves</label>
+            </div>
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="frecuencia" value="Viernes">
+                <label class="form-check-label" for="inlineCheckbox5">Viernes</label>
+            </div>
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="frecuencia" value="Sabado">
+                <label class="form-check-label" for="inlineCheckbox6">Sábado</label>
+            </div>
+            <div class="form-check form-check-inline mx-2">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="frecuencia" value="Domingo">
+                <label class="form-check-label" for="inlineCheckbox7">Domingo</label>
+            </div>
+        </div>
+        <div id="frecuencia-error" class="text-danger mb-4" style="display: none;"></div>
+
+        <div class="text-center mb-4">
+            <label class="form-label">Hora de Inicio</label>
+            <input type="time" name="hora_inicio" class="form-control d-inline-block mx-2" style="width: auto;" required>
+            <label class="form-label">Hora de Fin</label>
+            <input type="time" name="hora_fin" class="form-control d-inline-block mx-2" style="width: auto;" required>
+            <div id="hora-error" class="text-danger"></div>
+        </div>
+
+        <div class="text-center mb-4">
+            <label class="form-label">Aforo</label>
+            <input type="number" name="aforo" class="form-control d-inline-block mx-2" style="width: auto;" required min="1" max="30">
+            <div id="aforo-error" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Grupo</label>
+            <select class="form-select" name="grupo" aria-label="Grupo" id="grupo" required>
+                <option value="">Selecciona un grupo</option>
+                <option value="Niños">Niños</option>
+                <option value="Jovenes">Jóvenes</option>
+                <option value="Adultos">Adultos</option>
+            </select>
+            <div id="grupo-error" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Sede</label>
+            <select class="form-select" name="sede" aria-label="Sede" id="sede" required>
+                <option value="">Selecciona una sede</option>
+                {% for x in sedes %}
+                <option value="{{x.id}}">{{ x.departamento }}-{{x.distrito}}-{{x.direccion}}</option>
+                {% endfor %}
+            </select>
+            <div id="sede-error" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Docente</label>
+            <select class="form-select" name="docente" aria-label="Docente" id="docente" required>
+                <option value="">Selecciona un docente</option>
+                {% for x in docentes %}
+                <option value="{{x.id}}">{{x.nombre}}-{{x.apellido}}-{{x.grado_cinturon}}</option>
+                {% endfor %}
+            </select>
+            <div id="docente-error" class="text-danger"></div>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button id="btn-submit" class="btn btn-primary" type="submit" disabled>Registrar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Función para validar el formulario
+    function validarFormulario() {
+        let valid = true;
+        let frecuencia = document.querySelectorAll('input[name="frecuencia"]:checked').length;
+        let horaInicio = document.querySelector('input[name="hora_inicio"]').value;
+        let horaFin = document.querySelector('input[name="hora_fin"]').value;
+        let aforo = document.querySelector('input[name="aforo"]').value;
+        let grupo = document.getElementById('grupo').value;
+        let sede = document.getElementById('sede').value;
+        let docente = document.getElementById('docente').value;
+        
+        // Validación de frecuencia
+        if (frecuencia === 0) {
+            document.getElementById('frecuencia-error').innerHTML = 'Debe seleccionar al menos un día de la semana.';
+            document.getElementById('frecuencia-error').style.display = 'block';
+            valid = false;
+        } else {
+            document.getElementById('frecuencia-error').style.display = 'none';
+        }
+
+        // Validación de hora de inicio y fin
+        if (horaInicio && horaFin) {
+            if (horaFin <= horaInicio) {
+                document.getElementById('hora-error').innerHTML = 'La hora de fin no puede ser anterior a la hora de inicio.';
+                valid = false;
+            } else {
+                document.getElementById('hora-error').innerHTML = '';
+            }
+        }
+
+        // Validación de aforo
+        if (aforo <= 0) {
+            document.getElementById('aforo-error').innerHTML = 'El aforo debe ser un número positivo mayor que 0.';
+            valid = false;
+        } else {
+            document.getElementById('aforo-error').innerHTML = '';
+        }
+
+        // Validación de grupo, sede y docente
+        if (!grupo) {
+            document.getElementById('grupo-error').innerHTML = 'Por favor, seleccione un grupo.';
+            valid = false;
+        } else {
+            document.getElementById('grupo-error').innerHTML = '';
+        }
+
+        if (!sede) {
+            document.getElementById('sede-error').innerHTML = 'Por favor, seleccione una sede.';
+            valid = false;
+        } else {
+            document.getElementById('sede-error').innerHTML = '';
+        }
+
+        if (!docente) {
+            document.getElementById('docente-error').innerHTML = 'Por favor, seleccione un docente.';
+            valid = false;
+        } else {
+            document.getElementById('docente-error').innerHTML = '';
+        }
+
+        // Habilitar o deshabilitar el botón de enviar
+        document.getElementById('btn-submit').disabled = !valid;
+
+        return valid;
+    }
+
+    // Habilitar el botón de registrar si el formulario es válido
+    document.querySelectorAll('input, select').forEach(function(element) {
+        element.addEventListener('input', function() {
+            validarFormulario();
+        });
+    });
+
+    // Inicializar validación al cargar la página
+    window.onload = function() {
+        validarFormulario();
+    };
+</script>
+
+{% endblock %}

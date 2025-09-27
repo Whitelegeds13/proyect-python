@@ -1,0 +1,47 @@
+{% extends "app/landing/landing.html" %}
+
+{% load static %}  
+
+
+{% block extra_head %}
+
+<link rel="stylesheet" href="{% static 'app/styles/galeria_landing.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Carrusel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <!-- Indicadores -->
+  <ol class="carousel-indicators">
+    {% for image in images %}
+      <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+    {% endfor %}
+  </ol>
+
+  <!-- Elementos del carrusel -->
+  <div class="carousel-inner">
+    {% for image in images %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{% static 'app/img/'|add:image %}" class="d-block w-100" alt="Imagen del carrusel">
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Controles del carrusel -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{% endblock %}
+
+{% block landing %}
+
+{% endblock %}

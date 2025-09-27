@@ -1,0 +1,60 @@
+{% extends "app/base/base_docente.html" %}
+{% load static %}
+
+{% block titulo %} Lista de Alumnos <img src="{% static 'app/img/icono alumno.png' %}" alt="" style="width: 70px;">{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center">
+    <a href="/registrar_alumno/"> <button class="btn btn-success rounded-1"><i class="fas fa-plus"></i> Registrar Alumno</button></a>
+    <form action="" method="get" class="d-flex mt-3 mb-4" role="search">
+
+        <input class="form-control me-2 rounded-1" name="q" type="search" placeholder="Buscar Alumnos" aria-label="Search">
+        <button class="btn btn-success rounded-1" type="submit"><i class="fas fa-magnifying-glass"></i></button>
+    </form>
+</div>
+
+
+<table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-primary">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Grado de Cinturon</th>
+            <th scope="col">Usuario</th>
+            <th class="text-center" scope="col">Foto</th>
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody class="">
+        {% for x in alumnos %}
+        <tr>
+            <td scope="row">{{x.id}}</td>
+            <td>{{x.nombre}}</td>
+            <td>{{x.apellido}}</td>
+            <td>{{x.grado_cinturon.color_cinturon}} KUP {{x.grado_cinturon.kup}}</td>
+            <td>{{x.id_usuario}}</td>
+            <td class="text-center"><img src="{{x.foto_perfil.url}}" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 25px; border-style: solid; border-color: aquamarine;"></td>
+            <td class="text-center">
+                <a href="/editar_alumno/{{x.id}}"><button type="button" class="btn btn-info rounded-1">
+                        <i class="bi bi-pencil"></i>
+                    </button></a>
+                <a href="/detalles_docente/{{x.id}}"><button type="button" class="btn btn-info rounded-1"><i
+                            class="bi bi-info-circle"></i></button></a>
+                <a href="/eliminar_alumno/{{x.id}}"> <button type="button" class="btn btn-danger rounded-1"
+                        onclick="return confirm('¿Estás seguro que quieres eliminar al alumno?')"><i
+                            class="bi bi-trash"></i></button></a>
+            </td>
+        </tr>
+
+
+
+        {% endfor %}
+
+
+    </tbody>
+</table>
+
+{% endblock %}

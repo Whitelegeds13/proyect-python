@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GMSTKD - Academia de Taekwondo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'app/styles/landing.css' %}">
+  {% block extra_head %}
+  <!-- Otros elementos extra en el head -->
+  {% endblock %}
+
+</head>
+
+<body>
+
+  <!-- Navegación Principal -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="{% url 'clase_gratis_landing' %}">
+        {% load static %}
+        <img src="{% static 'app/img/logo_landing.jpg' %}" alt="Logo" class="logo-brand me-2">
+        <span class="brand-text">Gym Master Segovia</span>
+      </a>
+      
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Banderas y Certificaciones -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 flag-container">
+          <li class="nav-item">
+            <img src="{% static 'app/img/Peru.png' %}" alt="Bandera de Perú" class="flag-img">
+          </li>
+          <li class="nav-item">
+            <img src="{% static 'app/img/Corea.png' %}" alt="Bandera de Corea" class="flag-img">
+          </li>
+          <li class="nav-item">
+            <img src="{% static 'app/img/Federacion.png' %}" alt="Federación" class="flag-img">
+          </li>
+        </ul>
+        
+        <!-- Login -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person-circle me-2"></i> 
+              <span>Iniciar Sesión</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/login/">
+                <i class="bi bi-people-fill me-2"></i>Docente y Alumno
+              </a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/login_admin/">
+                <i class="bi bi-shield-check me-2"></i>Administrador
+              </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Navegación Secundaria -->
+  <nav class="secondary-nav mt-5 pt-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <ul class="nav nav-pills justify-content-center" id="secondaryNav">
+            <li class="nav-item">
+              <a class="nav-link active d-flex align-items-center" href="{% url 'clase_gratis_landing' %}">
+                <i class="bi bi-mortarboard me-2"></i>
+                <span>Clase Gratis</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="#nosotros">
+                <i class="bi bi-people-fill me-2"></i>
+                <span>Nosotros</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="/Sedes_landing/">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span>Sedes</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="{% url 'eventos' %}">
+                <i class="bi bi-calendar-event me-2"></i>
+                <span>Eventos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center" href="{% url 'galeria_landing' %}">
+                <i class="bi bi-images me-2"></i>
+                <span>Galería</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  {% if messages %}
+  {% for x in messages %}
+  {% if x.tags == "success" %}
+  <script>
+    Swal.fire({
+      title: "EXITO",
+      text: "{{x}}",
+      icon: "success",
+      confirmButtonText: 'OK'
+    });
+  </script>
+  {% elif x.tags == "error" %}
+  <script>
+    Swal.fire({
+      title: "ERROR",
+      text: "{{x}}",
+      icon: "error",
+      confirmButtonText: 'OK'
+    });
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  {% block content %}
+
+  {% endblock %}
+
+  {% block landing %}
+  
+  <!-- Sección Nosotros -->
+  <section class="about-section py-5" id="nosotros">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8 text-center">
+          <h1 class="section-title" data-aos="fade-up">Nosotros</h1>
+          <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+            Más de 31 años formando campeones en Taekwondo
+          </p>
+        </div>
+      </div>
+
+      <!-- Misión y Visión -->
+      <div class="row g-4 mb-5">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="card mission-card h-100">
+            <div class="card-body text-center">
+              <div class="icon-container mb-4">
+                <i class="fas fa-bullseye"></i>
+              </div>
+              <h3 class="card-title">Nuestra Misión</h3>
+              <p class="card-text">
+                Enseñar Taekwondo en todo el Perú para que más jóvenes aprendan a defenderse y lleven 
+                un estilo de vida saludable con respeto y disciplina.
+              </p>
+              <div class="image-container">
+                <img src="{% static 'app/img/mision.jpg' %}" class="img-fluid rounded" alt="Misión">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="card vision-card h-100">
+            <div class="card-body text-center">
+              <div class="icon-container mb-4">
+                <i class="fas fa-eye"></i>
+              </div>
+              <h3 class="card-title">Nuestra Visión</h3>
+              <p class="card-text">
+                Ser la academia de Taekwondo de más alto rendimiento en Lima y con más alumnos en la 
+                selección nacional de Taekwondo (FDPTKD) para el año 2026.
+              </p>
+              <div class="image-container">
+                <img src="{% static 'app/img/vision.jpg' %}" class="img-fluid rounded" alt="Visión">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maestro Fundador -->
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-4" data-aos="fade-up">
+          <div class="text-center">
+            <h2 class="founder-title">Maestro Fundador</h2>
+            <div class="founder-image-container">
+              <img src="{% static 'app/img/docente.jpg' %}" class="img-fluid rounded-circle founder-img" alt="Maestro Victor Segovia">
+              <div class="founder-badge">
+                <span>IV DAN KUKKIWON</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-8" data-aos="fade-left">
+          <div class="founder-info">
+            <h3 class="founder-name">Victor Segovia Tenorio</h3>
+            <div class="founder-description">
+              <p>
+                <strong>Fundador y dueño</strong> de la academia Gym Master Segovia. Posee el grado de 
+                <strong>Cinturón Negro IV DAN KUKKIWON</strong>, maestro y coach internacional con amplia 
+                experiencia en la docencia deportiva con niños, jóvenes y adultos.
+              </p>
+              <p>
+                Cumple con un estricto control de calidad y capacitaciones otorgadas por la 
+                <strong>Federación Deportiva Peruana de Taekwondo</strong> y la <strong>Kukkiwon</strong>.
+              </p>
+              <p>
+                Actualmente es <strong>Docente Principal</strong> de la Sede La Victoria, el colegio Libardoni 
+                y la Sede de Villa María del Triunfo.
+              </p>
+            </div>
+            <div class="achievements">
+              <div class="achievement-item">
+                <i class="fas fa-medal"></i>
+                <span>31+ años de experiencia</span>
+              </div>
+              <div class="achievement-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Coach Internacional</span>
+              </div>
+              <div class="achievement-item">
+                <i class="fas fa-certificate"></i>
+                <span>Certificado Kukkiwon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <!-- Redes Sociales -->
+      <div class="social-section text-center py-4">
+        <h5 class="social-title">Síguenos en nuestras redes sociales</h5>
+        <div class="social-links">
+          <a href="#" class="social-link facebook" data-aos="zoom-in" data-aos-delay="100">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-link google" data-aos="zoom-in" data-aos-delay="200">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="social-link instagram" data-aos="zoom-in" data-aos-delay="300">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link youtube" data-aos="zoom-in" data-aos-delay="400">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Información -->
+      <div class="row g-4 py-5">
+        <div class="col-lg-6" data-aos="fade-up">
+          <div class="footer-brand">
+            <h4 class="brand-title">GYM MASTER SEGOVIA</h4>
+            <p class="brand-description">
+              Academia de Taekwondo con múltiples sedes en Lima, fundada hace más de 31 años. 
+              Formamos campeones con disciplina, respeto y excelencia deportiva.
+            </p>
+            <div class="certifications">
+              <span class="cert-badge">FDPTKD</span>
+              <span class="cert-badge">KUKKIWON</span>
+              <span class="cert-badge">31+ AÑOS</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-info">
+            <h5 class="contact-title">Información de Contacto</h5>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Av. México, Apolo, La Victoria</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>GYM-MASTER-SEGOVIA@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>+51 977 650 061</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <span>Lunes a Viernes: 6:00 AM - 10:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="copyright-section text-center py-3">
+        <p class="copyright-text">
+          © 2024 <strong>Gym Master Segovia</strong>. Todos los derechos reservados. 
+          <span class="separator">|</span>
+          <a href="#" class="copyright-link">Política de Privacidad</a>
+          <span class="separator">|</span>
+          <a href="#" class="copyright-link">Términos y Condiciones</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  {% endblock %}
+  
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Inicializar AOS (Animate On Scroll)
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+
+    // Efecto de scroll suave para navegación
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Efecto de transparencia en navbar al hacer scroll
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('mainNav');
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+    });
+
+    // Animación de partículas oceánicas (opcional)
+    function createOceanParticles() {
+      const container = document.querySelector('.ocean-particles');
+      if (!container) return;
+      
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'ocean-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        container.appendChild(particle);
+      }
+    }
+
+    // Inicializar partículas cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', createOceanParticles);
+  </script>
+</body>
+
+</html>

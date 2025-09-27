@@ -1,0 +1,55 @@
+{% extends "app/base/base_docente.html" %}
+
+{% block titulo %} Lista Solicitudes <i class="text-primary bi-envelope"></i>{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center">
+    
+    <form action="{% url 'buscar_sedes' %}" method="get" class="d-flex mt-3 mb-4" role="search">
+     
+      <input class="form-control me-2" name="q" type="search" placeholder="Buscar Solicitante" aria-label="Search">
+      <button class="btn btn-success" type="submit"><i class="fas fa-magnifying-glass"></i></button>
+  
+       </form>
+
+   
+  
+  </div>
+  <table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nombres</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Horario</th>
+        <th scope="col">Estado</th>
+        <th scope="col" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="shadow-lg">
+      {% for x in lista_solicitudes %}
+      <tr>
+        <th scope="row">{{x.id}}</th>
+        <td>{{x.nombres}}</td>
+        <td>{{x.apellidos}}</td>
+        <td>{{x.edad}}</td>
+        <td>{{x.correo}}</td>
+        <td>{{x.id_horario.frecuencia}}-{{x.id_horario.grupo}}-{{x.id_horario.hora_inicio}}-{{x.id_horario.hora_fin}}-{{x.id_horario.id_sede.distrito}}</td>
+        <td class="{% if x.estado == 'aceptado' %}badge bg-success text-wrap{% elif x.estado == 'denegado' %}text-danger{% endif %}" style="width: 6rem;">{{x.estado}}</td>
+        <td class="text-center">
+          <a href="/aceptar-clase-gratis/{{x.id}}"><button type="button" class="btn btn-success">confirmar
+            <i class="bi bi-check"></i>
+            </button></a>
+          <a href="/denegar-clase-gratis/{{x.id}}"> <button type="button" class="btn btn-danger"
+              onclick="return confirm('¿Estás seguro que quieres denegar la solicitud de clase gratis?')">denegar <i class="bi bi-x"></i>
+            </button></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} Lista de Sedes <i class="  text-danger fas fa-map-marker-alt"></i>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center">
+  <a href="/registrar_sede/"> <button class="btn btn-success rounded-1"><i class="fas fa-plus"></i> Registrar Sede</button></a>
+
+
+  <form action="{% url 'buscar_sedes' %}" method="get" class="d-flex mt-3 mb-4" role="search">
+   
+    <input class="form-control me-2 rounded-1" name="q" type="search" placeholder="Buscar Sedes" aria-label="Search">
+    <button class="btn btn-success rounded-1" type="submit"><i class="fas fa-magnifying-glass"></i></button>
+
+     </form>
+
+     
+ 
+
+</div>
+<table class="table table-hover table-bordered shadow-sm">
+  <thead class="table-primary">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Departamento</th>
+      <th scope="col">Provincia</th>
+      <th scope="col">Distrito</th>
+      <th scope="col">Direccion</th>
+      <th scope="col" class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody class="">
+    {% for x in sedes %}
+    <tr>
+      <th scope="row">{{x.id}}</th>
+      <td>{{x.departamento}}</td>
+      <td>{{x.provincia}}</td>
+      <td>{{x.distrito}}</td>
+      <td>{{x.direccion}}</td>
+      <td class="text-center">
+        <a href="/editar_sedes/{{x.id}}"><button type="button" class="btn btn-info rounded-1">
+            <i class="bi bi-pencil"></i>
+          </button></a>
+        <a href="/detalles_sede/{{x.id}}"><button type="button" class="btn btn-info rounded-1"><i class="bi bi-eye"></i></i></button></a>
+        <a href="/eliminar_sede/{{x.id}}"> <button type="button" class="btn btn-danger rounded-1"
+            onclick="return confirm('¿Estás seguro que quieres eliminar la Sede?')"><i
+              class="bi bi-trash"></i></button></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

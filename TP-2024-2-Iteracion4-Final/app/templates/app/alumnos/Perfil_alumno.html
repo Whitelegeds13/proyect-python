@@ -1,0 +1,117 @@
+{% extends "app/base/base_alumno.html" %}
+
+{% block titulo %} Mi Perfil {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <form class="row g-3 p-4 shadow bg-white rounded" action="{% url 'editar_perfil_alumno' alumno.id %}" method="post" enctype="multipart/form-data" id="perfilForm">
+        {% csrf_token %}
+        
+        <!-- Sección de foto de perfil -->
+        <div class="col-12 text-center mb-4">
+            <div class="position-relative d-inline-block">
+                <img src="{{ alumno.foto_perfil.url }}" alt="Foto de Perfil" class="rounded-circle shadow" style="width: 200px; height: 200px; object-fit: cover;">
+                <h5 class="mt-3 text-center">{{ alumno.id_usuario }}</h5>
+            </div>
+        </div>
+
+        <!-- Información personal -->
+        <div class="col-12">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="nombre" placeholder="Nombres" name="nombre" value="{{ alumno.nombre }}" required disabled>
+                        <label for="nombre">Nombres</label>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="apellido" placeholder="Apellidos" name="apellido" value="{{ alumno.apellido }}" required disabled>
+                        <label for="apellido">Apellidos</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="edad" placeholder="Edad" name="edad" value="{{ alumno.edad }}" disabled required>
+                        <label for="edad">Edad</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="dni" placeholder="DNI" minlength="8" maxlength="8" name="dni" value="{{ alumno.dni }}" required disabled>
+                        <label for="dni">DNI</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="correo" placeholder="Correo" name="correo" value="{{ alumno.correo }}" required disabled>
+                        <label for="correo">Correo</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="direccion" placeholder="Dirección" name="direccion" value="{{ alumno.direccion }}" required disabled>
+                        <label for="direccion">Dirección</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="genero" name="genero" value="{{ alumno.genero }}" required disabled>
+                        <label for="genero">Género</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="grado_cinturon" name="grado_cinturon" value="{{ alumno.grado_cinturon.color_cinturon }}" required disabled>
+                        <label for="grado_cinturon">Grado de Cinturón</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="col-12 text-center mt-4">
+            <a href="/dashboard_alumno/" class="btn btn-outline-primary px-4">Volver</a>
+            <button type="button" class="btn btn-secondary px-4 ms-2" id="editButton">Editar</button>
+            <button type="submit" class="btn btn-primary px-4 ms-2" id="saveButton" style="display: none;">Actualizar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+let isEditing = false;
+
+document.getElementById('editButton').addEventListener('click', function() {
+    const editButton = this;
+    const fields = ['nombre', 'apellido', 'correo', 'direccion'];
+    
+    if (!isEditing) {
+        // Habilitar campos
+        fields.forEach(field => document.getElementById(field).disabled = false);
+        
+        // Mostrar botón guardar y cambiar estilo del botón editar
+        document.getElementById('saveButton').style.display = 'inline-block';
+        editButton.textContent = 'Cancelar';
+        editButton.classList.replace('btn-secondary', 'btn-danger');
+    } else {
+        // Deshabilitar campos
+        fields.forEach(field => document.getElementById(field).disabled = true);
+        
+        // Ocultar botón guardar y restaurar estilo del botón editar
+        document.getElementById('saveButton').style.display = 'none';
+        editButton.textContent = 'Editar';
+        editButton.classList.replace('btn-danger', 'btn-secondary');
+    }
+    
+    isEditing = !isEditing;
+});
+</script>
+
+{% endblock %}

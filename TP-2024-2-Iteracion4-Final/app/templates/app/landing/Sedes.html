@@ -1,0 +1,63 @@
+{% extends "app/landing/landing.html" %}
+
+{% block content %}
+<section class="section-sedes">
+    <h1 class="text-center text-white">Nuestras Sedes</h1>
+    
+    <div class="container">
+        <div class="row">
+            {% for sede in sedes %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if sede.foto_local %}
+                        <img src="{{ sede.foto_local.url }}" alt="Imagen de {{ sede.nombre }}" data-bs-toggle="modal" data-bs-target="#imagenModal{{ sede.id }}" style="border: 0px; border-radius: 15px;">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sede.nombre }}</h5>
+                        <p class="card-text"><strong>Dirección:</strong> {{ sede.direccion }}</p>
+                        <p class="card-text"><strong>Distrito:</strong> {{ sede.distrito }}</p>
+                        <p class="card-text"><strong>Provincia:</strong> {{ sede.provincia }}</p>
+                        <p class="card-text"><strong>Departamento:</strong> {{ sede.departamento }}</p>
+
+                        <!-- Mostrar teléfonos de los docentes como enlaces de WhatsApp -->
+                        {% if sede.docentes_telefonos %}
+                            <p><strong>Teléfonos de contacto:</strong></p>
+                            <div>
+                                {% for telefono in sede.docentes_telefonos %}
+                                    <a href="https://wa.me/{{ telefono }}" target="_blank" class="btn btn-success d-flex align-items-center p-2 mb-2 text-decoration-none">
+                                        <i class="fab fa-whatsapp fa-2x me-2"></i> <!-- Ícono de WhatsApp -->
+                                        <span>Contactanos por WhatsApp: </span> <!-- Texto -->
+                                        <span class="ms-2 font-weight-bold">+ {{ telefono }}</span> <!-- Número de teléfono -->
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>No hay docentes asignados a esta sede.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para cada sede -->
+            <div class="modal fade" id="imagenModal{{ sede.id }}" tabindex="-1" aria-labelledby="imagenModalLabel{{ sede.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imagenModalLabel{{ sede.id }}">{{ sede.nombre }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ sede.foto_local.url }}" alt="Imagen de {{ sede.nombre }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block landing %}
+{% endblock %}

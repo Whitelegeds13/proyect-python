@@ -1,0 +1,59 @@
+{% extends "app/base/base_alumno.html" %}
+
+{% block titulo %} Mi Matrícula <i class="bi-credit-card text-success"></i>{% endblock %}
+
+{% block content %}
+
+{% if matriculas_sin_pagar_o_denegadas_o_pagadas|length == 0 %}
+  <div class="alert alert-info text-center" role="alert">
+    No tiene pago de matrícula pendiente, matrículas denegadas ni matrículas pagadas.
+  </div>
+{% else %}
+  <table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-primary">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Monto</th>
+        <th scope="col">Comprobante de Pago</th>
+        <th scope="col">Fecha</th>
+        <th scope="col" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="shadow-lg">
+      {% for matricula in matriculas_sin_pagar_o_denegadas_o_pagadas %}
+        <tr>
+          <td>{{ matricula.id }}</td>
+          <td>{{ matricula.estado }}</td>
+          <td>s/{{ matricula.monto }}</td>
+          <td>
+            {% if matricula.comprobante_pago %}
+              <img src="{{ matricula.comprobante_pago.url }}" alt="Comprobante" width="50" height="50">
+            {% else %}
+              Sin comprobante
+            {% endif %}
+          </td>
+          <td>{{ matricula.fecha }}</td>
+          <td class="text-center">
+            <!-- Botón de pago para matrículas "sin pagar" -->
+            {% if matricula.estado == "sin pagar" %}
+              <a href="/pago_matricula_alumno/{{ matricula.id }}">
+                <button type="button" class="btn btn-success rounded-1"> S/ Pagar</button>
+              </a>
+            {% endif %}
+            <!-- Mensaje para matrículas "Denegado" -->
+            {% if matricula.estado == "Denegado" %}
+              <span class="text-danger">Matrícula Denegada</span>
+            {% endif %}
+            <!-- Mensaje para matrículas "Pagado" -->
+            {% if matricula.estado == "Pagado" %}
+              <span class="text-success">Matrícula Pagada</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% endblock %}

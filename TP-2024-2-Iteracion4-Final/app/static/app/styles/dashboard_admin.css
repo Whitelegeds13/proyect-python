@@ -1,0 +1,27 @@
+ .logo-menu {
+    max-width: 100px; /* Ajusta el tamaño máximo de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-style: solid;
+    border-radius: 50%;
+  }
+  .menusuperior{
+background-color:#002079;
+  }
+  .sidebar {
+    background-image: url(https://i0.wp.com/mastkd.com/wp-content/uploads/2016/06/20160621-x_Taekwondo_Picture2_.jpg);
+    background-blend-mode: multiply; /* Mezcla la imagen con el color */
+    background-size: cover; /* Para que la imagen cubra todo el sidebar */
+    background-position: center;
+    color: #FFFFFF; /* Texto blanco para contraste */
+}
+.nav-link {
+  color: #FFFFFF; /* Color de texto inicial */
+  padding: 10px 15px; /* Espaciado adicional */
+  border-radius: 5px; /* Bordes redondeados para cada opción */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+.sidebar .navbar-nav .nav-link:hover {
+  background-color: #1100ff7d; /* Color de fondo verde en hover */
+  color: #F0F0F0; /* Color del texto cuando el cursor pasa sobre la opción */
+}
+

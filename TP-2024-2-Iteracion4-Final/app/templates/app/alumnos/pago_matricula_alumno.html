@@ -1,0 +1,71 @@
+{% extends "app/base/base_alumno.html" %}
+
+{% block titulo %} Pago de Matrícula <i class="bi-credit-card text-success"></i>{% endblock %}
+
+{% block content %}
+
+<div class="row border rounded-1 p-3">
+    <!-- Columna de Datos de Matrícula -->
+    <div class="col-md-6">
+        <h4>Datos de Matrícula</h4>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Estado</th>
+                <td>{{ matricula.estado }}</td>
+            </tr>
+            <tr>
+                <th>Monto</th>
+                <td>S/{{ matricula.monto }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ matricula.fecha }}</td>
+            </tr>
+            <tr>
+                <th>Horario</th>
+                <td><p>Frecuencia: {{ matricula.id_horario.frecuencia }}</p>
+                    <p>Hora de Inicio: {{matricula.id_horario.hora_inicio}}</p>
+                    <p>Hora de Inicio: {{matricula.id_horario.hora_fin}}</p>
+                    <p>Sede: {{matricula.id_horario.id_sede.departamento}}-{{matricula.id_horario.id_sede.distrito}}-{{matricula.id_horario.id_sede.direccion}}</p>
+                    <p>Docente: {{matricula.id_horario.id_docente.nombre}} {{matricula.id_horario.id_docente.apellido}}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Columna de Pago -->
+    <div class="col-md-6 border rounded-1 pb-3">
+        <h4>Realiza el Pago</h4>
+        <!-- QR de Yape -->
+        <div class="text-center">
+            {% load static %}
+            <a href="{% static 'app/img/qr_default.jpeg' %}" target="_self">
+                <img src="{% static 'app/img/qr_default.jpeg' %}" 
+                alt="QR de Yape" 
+                width="200" 
+                height="250" 
+                style="border-style: solid; border-color: darkorchid; border-radius: 10px; 
+                       transition: transform 0.3s ease, opacity 0.3s ease;"
+                onmouseover="this.style.transform='scale(1.1)'; this.style.opacity='0.8';" 
+                onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+            </a>
+            <p></p>
+            <p>Escanea el QR para realizar el pago a través de Yape.</p>
+        </div>
+
+        <!-- Formulario de Pago -->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'pago_matricula_alumno' matricula.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="comprobante_pago" class="form-label">Sube tu Comprobante de Pago</label>
+                <input type="file" class="form-control" id="comprobante_pago" name="comprobante_pago" required>
+            </div>
+            <div class="d-grid gap-2">
+            <button type="submit" class=" btn btn-success rounded-1"><i class="bi bi-check-circle"></i> Confirmar Pago</button>
+        </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

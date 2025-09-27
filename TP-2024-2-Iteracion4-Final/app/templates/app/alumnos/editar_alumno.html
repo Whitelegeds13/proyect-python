@@ -1,0 +1,77 @@
+{% extends "app/base/base_docente.html" %}
+{% block titulo %} Editar Alumno {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <form class="row g-3 p-4 shadow-sm bg-white border" action="{% url 'editar_alumno' alumno.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Datos personales -->
+        <div class="col-md-4">
+          <label class="form-label">Nombres</label>
+          <input type="text" class="form-control" name="nombre" value="{{ alumno.nombre }}" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Apellidos</label>
+          <input type="text" class="form-control" name="apellido" value="{{ alumno.apellido }}" required>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label">DNI</label>
+          <input type="number" class="form-control" name="dni" value="{{ alumno.dni }}" required>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label">Correo</label>
+          <input type="email" class="form-control" name="correo" value="{{ alumno.correo }}" required>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label">Telefono</label>
+          <input type="number" class="form-control" name="telefono" value="{{ alumno.telefono }}" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Direccion</label>
+          <input type="text" class="form-control" name="direccion" value="{{ alumno.direccion }}" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Fecha de Nacimiento</label>
+          <input type="date" class="form-control" name="fecha_nacimiento" value="{{ alumno.fecha_nacimiento }}" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Grado de Cinturon</label>
+          <select class="form-control" name="grado_cinturon" required>
+              {% for cinturon in cinturones %}
+                  <option value="{{ cinturon.id }}" {% if alumno.grado_cinturon.id == cinturon.id %} selected {% endif %}>{{ cinturon.color_cinturon }}</option>
+              {% endfor %}
+          </select>
+        </div>
+      
+        <div class="col-md-4">
+          <label class="form-label">Foto de Perfil</label>
+          <input type="file" class="form-control" name="foto_perfil" accept=".jpg, .jpeg, .png">
+        </div>
+      
+        <div class="col-md-4">
+          <label class="form-label">Genero</label>
+          <select class="form-control" name="genero" required>
+            <option value="Masculino" {% if alumno.genero == 'Masculino' %} selected {% endif %}>Masculino</option>
+            <option value="Femenino" {% if alumno.genero == 'Femenino' %} selected {% endif %}>Femenino</option>
+          </select>
+        </div>
+      
+        <!-- Campos de usuario y contraseña deshabilitados -->
+        <div class="mb-3">
+          <label class="form-label">Nombre de Usuario</label>
+          <input type="text" class="form-control" name="usuario" value="{{ alumno.id_usuario.username }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contraseña</label>
+          <input type="password" class="form-control" name="contraseña" placeholder="Ingrese la nueva contraseña" disabled>
+        </div>
+      
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="submit">Actualizar</button>
+        </div>
+      </form>
+</div>
+
+{% endblock %}

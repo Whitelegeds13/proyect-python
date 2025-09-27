@@ -1,0 +1,60 @@
+{% extends "app/dashboard/dashboard_admin.html" %}
+
+{% block option %}
+Gestión de Usuarios
+{% endblock %}
+
+{% block buscar %}
+
+<form class="d-flex" role="search" method="GET" action="{% url 'buscar_usuarios' %}">
+  <input class="form-control me-2" type="search" name="q" placeholder="Buscar Usuarios" aria-label="Search"
+    value="{{ query }}">
+  <button class="btn btn-outline-success" type="submit">Buscar</button>
+</form>
+
+{% endblock %}
+
+{% block subtitle %} Registrar Usuario {% endblock %}
+
+{% block content %}
+<div style="width: 80%; padding-left: 20%;">
+  <form action="{% url 'registrar_usuario' %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Nombre de Usuario</label>
+      <input type="text" class="form-control" name="usuario" placeholder="Ingrese el nombre de Usuario" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Contraseña</label>
+      <input type="password" class="form-control" name="contraseña" placeholder="Ingrese la contraseña" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Grupo</label>
+      <select class="form-select" aria-label="Default select example" name="grupo" required>
+        {% for x in grupos %}
+        <option value="{{ x.name }}">{{ x.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Sede</label>
+      <select class="form-select" aria-label="Default select example" name="id_sede" required>
+        {% for x in sedes %}
+        <option value="{{ x.id }}">{{ x.departamento }}-{{x.provincia}}-{{x.distrito}}-{{x.direccion}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="d-grid gap-2">
+      <button class="btn btn-primary" type="submit">Registrar</button>
+    </div>
+    {% if messages %}
+    {% for x in messages %}
+    <div class="alert alert-success text-center" role="alert">
+      <h3 class="text-success"> {{ x }} </h3>
+      <a href="/lista_usuarios/">Regresar a la lista</a>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "app/base/base_admin.html" %}
+
+{% block titulo %} Detalle Horario <i class="bi-clock-fill"></i>{% endblock %}
+
+{% block content %}
+<div class="shadow-sm p-4 bg-white fw-bold">
+    <form action="" method="post">
+      
+        {% csrf_token %}
+        <div class="text-center mb-4">
+            <h4 class="form-label">Frecuencia</h4>
+        </div>
+
+        <div class="text-center d-flex flex-wrap justify-content-center mb-4">
+            {% for dia in dias %}
+                <div class="form-check form-check-inline mx-2">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox{{ forloop.counter }}" name="frecuencia" value="{{ dia }} "
+                    {% if dia in horario.frecuencia %} checked {% endif %} disabled>
+                    <label class="form-check-label" for="inlineCheckbox{{ forloop.counter }}">{{ dia }}</label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mb-4">
+            <label class="form-label">Hora de Inicio</label>
+            <input type="time" name="hora_inicio" class="form-control d-inline-block mx-2" value="{{ horario.hora_inicio|time:"H:i" }}" style="width: auto;" disabled>
+            <label class="form-label">Hora de Fin</label>
+            <input type="time" name="hora_fin" class="form-control d-inline-block mx-2" value="{{ horario.hora_fin|time:"H:i" }}" style="width: auto;" disabled>
+            <label class="form-label">Aforo</label>
+            <input type="number" min="1" max="30" name="aforo"  class="form-control d-inline-block mx-2" value="{{ horario.aforo }}" style="width: auto;" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Grupo</label>
+            <select class="form-select" name="grupo" aria-label="Default select example" disabled>
+                <option value="{{horario.grupo}}" selected>{{horario.grupo}}</option>
+                <option value="Niños">Niños</option>
+                <option value="Jovenes">Jovenes</option>
+                <option value="Adultos">Adultos</option>
+            </select>
+        </div>
+       
+
+
+        <div class="mb-3">
+            <label class="form-label">Sede</label>
+            <select class="form-select" name="sede" aria-label="Default select example" disabled>
+                
+                <option value="{{horario.id_sede.id}}">Actual: {{horario.id_sede.departamento}}-{{horario.id_sede.distrito}}-{{horario.id_sede.direccion}}</option>
+                {% for x in sedes %}
+                <option value="{{x.id}}">{{ x.departamento }}-{{x.distrito}}-{{x.direccion}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Docente</label>
+            <select class="form-select" name="docente" aria-label="Default select example" disabled>
+               
+                <option value="{{horario.id_docente.id}}"selected>Actual: {{horario.id_docente.nombre}}-{{horario.id_docente.apellido}}-{{horario.id_docente.grado_cinturon}}</option>
+                {% for x in docentes %}
+                <option value="{{x.id}}">{{x.nombre}}-{{x.apellido}}-{{x.grado_cinturon}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="d-grid gap-2">
+           <a href="/lista_horarios/" class="btn btn-primary" type="submit">Regresar a Lista </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

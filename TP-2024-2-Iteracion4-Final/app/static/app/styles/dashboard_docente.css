@@ -1,0 +1,34 @@
+.logo-menu {
+  max-width: 100px; /* Ajusta el tamaño máximo de la imagen */
+  height: auto; /* Mantiene la proporción de la imagen */
+  border-style: solid;
+  border-radius: 50%;
+}
+.menusuperior{
+background-color:#198754;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active {
+  color: black; /* Cambia a negro cuando se pasa el mouse, se enfoca o se selecciona */
+  text-decoration: none; /* Evita el subrayado en estos estados */
+}
+
+.sidebar {
+  background-image: url(https://st.depositphotos.com/1802779/1372/i/450/depositphotos_13729740-stock-photo-black-belt.jpg);
+  background-blend-mode: multiply; /* Mezcla la imagen con el color */
+  background-size: cover; /* Para que la imagen cubra todo el sidebar */
+  background-position: center;
+  color: #FFFFFF; /* Texto blanco para contraste */
+}
+.nav-link {
+color: #FFFFFF; /* Color de texto inicial */
+padding: 10px 15px; /* Espaciado adicional */
+border-radius: 5px; /* Bordes redondeados para cada opción */
+transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+.sidebar .navbar-nav .nav-link:hover {
+background-color: #006400; /* Color de fondo verde en hover */
+color: #F0F0F0; /* Color del texto cuando el cursor pasa sobre la opción */
+}

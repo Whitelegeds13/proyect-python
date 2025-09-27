@@ -1,0 +1,71 @@
+{% extends "app/base/base_docente.html" %}
+
+{% block titulo %} Evaluar Matriculas <i class="bi-credit-card text-success"></i>{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center">
+    
+    <form action="{% url 'buscar_docentes' %}" method="get" class="d-flex mt-3 mb-4" role="search">
+
+        <input class="form-control me-2" name="q" type="search" placeholder="Buscar Alumno" aria-label="Search">
+        <button class="btn btn-success rounded-1" type="submit"><i class="fas fa-magnifying-glass"></i></button>
+    </form>
+</div>
+
+
+<table class="table table-hover table-bordered shadow-sm">
+    <thead class="table-primary">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre-(DNI)</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Comprobante de pago</th>
+            <th scope="col">Estado</th>
+            
+            <th scope="col" class="text-center">Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody class="shadow-lg">
+        {% for x in lista_matriculas %}
+        <tr>
+            <td scope="row">{{x.id}}</td>
+            <td>{{x.id_alumno.nombre}}-{{x.id_alumno.apellido}}-{{x.id_alumno.dni}}</td>
+            <td>{{x.monto}}</td>
+            <td>{{x.id_horario.frecuencia}}-{{x.id_horario.grupo}}</td>
+            <td class="text-center">
+                {% if x.comprobante_pago %}
+                    <a href="{{ x.comprobante_pago.url }}">
+                        <img src="{{ x.comprobante_pago.url }}" alt="" style="width: 50px; height: 50px; object-fit: cover;">
+                    </a>
+                {% else %}
+                    <span>No hay comprobante</span>
+                {% endif %}
+            </td>
+            <td class="{% if x.estado == 'Pagado' %} badge rounded-pill text-bg-success{% elif x.estado == 'Denegado' %} badge rounded-pill text-bg-danger {% endif %}" style="margin-top: 15px;">{{x.estado}}</td>
+            
+            
+            <td class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                      Evaluar
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/aceptar_pago_matricula/{{x.id}}">Aceptar Pago</a></li>
+                      <li><a class="dropdown-item" href="/denegar_pago_matricula/{{x.id}}">Denegar Pago</a></li>
+                    </ul>
+                  </div>
+            </td>
+        </tr>
+
+
+
+        {% endfor %}
+
+
+    </tbody>
+</table>
+
+{% endblock %}

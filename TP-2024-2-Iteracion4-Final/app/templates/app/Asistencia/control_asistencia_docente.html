@@ -1,0 +1,50 @@
+{% extends "app/base/base_docente.html" %}
+
+{% block titulo %} Control de Asistencia {% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <!-- Filtro por sede -->
+  <form method="GET" class="mb-4">
+    <label for="sede" class="form-label">Filtrar por sede:</label>
+    <select id="sede" name="sede" class="form-select" onchange="this.form.submit()">
+      <option value="">Todas las sedes</option>
+      {% for sede in sedes %}
+      <option value="{{ sede.id }}" {% if request.GET.sede == sede.id %}selected{% endif %}>
+        {{ sede.nombre }}
+      </option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <!-- Mostrar horarios filtrados -->
+  <div class="row">
+    {% for x in horarios %}
+    <div class="col-md-4 mb-3">
+      <a href="/lista_control_asistencia/{{x.id}}" class="text-decoration-none text-reset">
+        <div class="card text-bg-primary h-100" style="border-style: solid; border-color: darkorchid; border-radius: 10px; 
+        transition: transform 0.3s ease, opacity 0.3s ease;"
+ onmouseover="this.style.transform='scale(1.1)'; this.style.opacity='0.8';" 
+ onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+          <div class="card-header">{{ x.id_sede.departamento }}</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ x.id_sede.distrito }} {{ x.id_sede.direccion }}</h5>
+            <p class="card-text">
+              {{ x.hora_inicio }} - {{ x.hora_fin }} <br>
+              {{ x.frecuencia }}
+            </p>
+            <p class="card-text">
+                {{x.grupo}}
+              </p>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <p>No hay horarios disponibles para la sede seleccionada.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

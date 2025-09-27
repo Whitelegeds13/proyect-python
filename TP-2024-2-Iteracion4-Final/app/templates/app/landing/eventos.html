@@ -1,0 +1,92 @@
+{% extends "app/landing/landing.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'app/styles/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <h1 class="text-center text-white">Eventos</h1>
+        <div class="overlay">
+            <div class="row g-0 text-white pt-md-5">
+                <div class="col-6 col-md-4 text-center text-white">
+                  <h2>Evento</h2>
+                 <video src="{% static 'app/img/Evento01.mp4' %}" class="img-fluid" controls></video>
+                </div>
+                    <div class="col-sm-6 col-md-8 text-start pt-md-5">
+                        <p>¡Están todos cordialmente invitados a observar nuestra emocionante competencia de Taekwondo!</p>
+                        <p>Este evento contará con la participación de talentosos atletas de diferentes categorías, mostrando lo mejor de su técnica y espíritu deportivo.</p>
+                        <p>No te pierdas la oportunidad de ser testigo de la pasión y la dedicación que caracteriza a nuestros deportistas.</p>
+                        <p>¡Te esperamos para que vivas una experiencia inolvidable llena de energía y emoción!</p>
+                    </div>
+            </div>
+        </div>
+
+        <div class="overlay">
+            <div class="row g-0 text-white pt-md-5">
+                <div class="col-12 col-md-8 text-start pt-md-5">
+                    <p><strong>¡𝗔𝗧𝗘𝗡𝗖𝗜𝗢́𝗡 𝗳𝗮𝗺𝗶𝗹𝗶𝗮 𝗚𝘆𝗺 𝗠𝗮𝘀𝘁𝗲𝗿𝘀 𝗦𝗲𝗴𝗼𝘃𝗶𝗮! 🔊</strong></p>
+                    <p>Les compartimos la ENTREVISTA COMPLETA 🎧🎙️ a nuestra campeona Lucero Mendoza, previo al Open Perú G1 2023. Lucero habló sobre su ardua preparación, el apoyo de Gym Masters Segovia y sus padres, y su sueño de llegar a ser parte de la élite mundial en taekwondo y representar a Perú en los Juegos Olímpicos. ¡No te pierdas su inspiradora historia!</p>
+                    <p><strong>¡Vamos con todo! Toda la familia GMS te apoya de corazón.</strong></p>
+                </div>
+                <div class="col-12 col-md-4 text-center text-white">
+                    <video class="img-fluid" controls>
+                        <source src="{% static 'app/img/Evento02.mp4' %}" type="video/mp4">
+                        <source src="{% static 'app/img/Evento02.webm' %}" type="video/webm">
+                        <source src="{% static 'app/img/Evento02.ogv' %}" type="video/ogg">
+                        Tu navegador no soporta el formato de video.
+                    </video>
+                </div>
+            </div>
+        </div> 
+        <div class="overlay">
+            <div class="row g-0 text-white pt-md-5">
+                <div class="col-12 col-md-4 text-center text-white">
+                    <img src="{% static 'app/img/Evento03.jpg' %}" width="300" height="300" style="object-fit: cover;" alt="Evento Halloween">
+                </div>
+                <div class="col-12 col-md-8 text-start pt-md-5">
+                    <p><strong>𝗙𝗮𝗺𝗶𝗹𝗶𝗮 𝗚𝘆𝗺 𝗠𝗮𝘀𝘁𝗲𝗿𝘀 𝗦𝗲𝗴𝗼𝘃𝗶𝗮! 🎃</strong></p>
+                    <p>¡El 31 de octubre llega nuestro ENTRENAMIENTO ESPECIAL de Halloween! Disfrázate y prepárate para una sesión extra larga llena de juegos, competencias y mucha diversión. Habrá premios para el mejor disfraz. 🏆</p>
+                    <p><strong>🗓 31 de octubre | ⏰ 06 pm | 📍 Sede La Victoria</strong></p>
+                    <p>¡Te esperamos para celebrar Halloween como nunca antes! 💀🦇</p>
+                </div>
+            </div>
+        </div>  
+        <div class="overlay">
+            <div class="row g-0 text-white pt-md-5" style="display: flex; align-items: center;">
+                <div class="col-12 col-md-8 text-start">
+                    <p><strong>𝗚𝗿𝗮𝗻 𝗳𝗲𝗹𝗶𝗰𝗶𝘁𝗮𝗰𝗶𝗼́𝗻 𝗽𝗮𝗿𝗮 𝗻𝘂𝗲𝘀𝘁𝗿𝗮 𝗰𝗮𝗺𝗽𝗲𝗼𝗻𝗮 𝗟𝗨𝗖𝗘𝗥𝗢 𝗠𝗘𝗡𝗗𝗢𝗭𝗔 👏🏻</strong></p>
+                    <p>Lucero, ejemplo de dedicación y esfuerzo, obtuvo un destacado lugar en el 𝗧𝗲𝗿𝗰𝗲𝗿 𝗖𝗮𝗺𝗽𝗲𝗼𝗻𝗮𝘁𝗼 𝗡𝗮𝗰𝗶𝗼𝗻𝗮𝗹 𝗣𝗲𝗿𝘂𝗮𝗻𝗼 𝗱𝗲 𝗧𝗮𝗲𝗸𝘄𝗼𝗻𝗱𝗼 𝟮𝟬𝟮𝟯 🏆🥇</p>
+                    <p>¡Estamos muy orgullosos de ti! Sigue brillando con tu actitud y pasión por el taekwondo. 💙👊🏻</p>
+                </div>
+                <div class="col-12 col-md-4 text-center">
+                    <video width="400" height="400" controls>
+                        <source src="{% static 'app/img/Evento04.mp4' %}" type="video/mp4">
+                        Tu navegador no soporta el formato de video.
+                    </video>
+                </div>
+            </div>
+        </div>      
+        <div class="overlay">
+            <div class="row g-0 text-white pt-md-5" style="display: flex; align-items: center;">
+                <div class="col-12 col-md-4 text-center">
+                    <video width="400" height="400" controls>
+                        <source src="{% static 'app/img/Evento05.mp4' %}" type="video/mp4">
+                        <source src="{% static 'app/img/Evento05.webm' %}" type="video/webm">
+                        <source src="{% static 'app/img/Evento05.ogv' %}" type="video/ogg">
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                </div>
+                <div class="col-12 col-md-8 text-start" style="padding-left: 20px;">
+                    <p><strong>𝗙𝗲𝗹𝗶𝗰𝗶𝘁𝗮𝗰𝗶𝗼𝗻𝗲𝘀 𝗮 𝗘𝘀𝘁𝗿𝗲𝗹𝗹𝗮 𝗩𝗮𝗿𝗴𝗮𝘀 🏅🥇</strong></p>
+                    <p>Estrella logró el 𝗻𝗼𝗰𝗮𝘂𝘁 𝗺𝗮́𝘀 𝗿𝗮́𝗽𝗶𝗱𝗼 ⏱️💥 en el Tercer Campeonato Nacional 2023 organizado en la Videna. 🥋⚡️</p>
+                    <p>Con patadas certeras y explosivas 🦶🏻💥, demostró su poderío en el tatami, fruto de años de dedicación y esfuerzo. 💪🏻💯</p>
+                    <p>Desde Gym Masters Segovia, estamos orgullosos 💙 de nuestra campeona, quien eleva el nombre de nuestra institución. 🌟👏🏻</p>
+                    <p>¡𝗘𝘀𝘁𝗿𝗲𝗹𝗹𝗮, 𝗲𝗿𝗲𝘀 𝘂𝗻 𝗼𝗿𝗴𝘂𝗹𝗹𝗼 𝗽𝗮𝗿𝗮 𝗚𝗠𝗦 𝗦𝗲𝗴𝗼𝘃𝗶𝗮! 🏆💙</p>
+                </div>
+            </div>
+        </div>
+    </div> 
+{% endblock %}
+
